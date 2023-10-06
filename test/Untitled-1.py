@@ -1,0 +1,5 @@
+
+def checkdata():
+    while name != 
+
+    
