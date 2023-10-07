@@ -115,7 +115,7 @@ class GUI(QMainWindow):
                 
    
     def login(self):
-        if client.check_login_data(self.FnameLineLogin.text(), self.LnameLineLogin.text(), self.PassLineLogin.text(), self.PinLogin.text()):
+        if Client.check_login_data(self.FnameLineLogin.text(), self.LnameLineLogin.text(), self.PassLineLogin.text(), self.PinLogin.text()):
             self.LoginFrame.setVisible(False)
             self.RegFrame.setVisible(False)
             self.ClientMenuFrame.setVisible(True)
@@ -142,9 +142,9 @@ class GUI(QMainWindow):
             data.write(" ")
             data.write(self.PassLine.text())
             data.write(" ")
-            data.write(format(randint(0000000000000000,9999999999999999)))
-            data.write(" ")
             data.write(format(randint(0000,9999)))
+            data.write(" ")
+            data.write(format(randint(0000000000000000,9999999999999999)))
             data.write(" ")
             data.write(self.GmailLine.text())
             data.write(" ")

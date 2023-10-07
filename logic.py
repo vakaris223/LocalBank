@@ -1,7 +1,7 @@
 #client class for bank
 
 
-class logic():
+class Logic():
     
     def FindUsersData(self, lname, fname):
             user = []
@@ -11,16 +11,16 @@ class logic():
                     return login_info
             return False
 
-    def checkdata(self):
+    def checkdata(self, fname, lname, password, pin):
                 if(self.FindUsersData(self.LnameLineLogin.text(), self.FnameLineLogin.text()) == False):
                     return False
                 else:
                     for line in open("data.txt", "r").readlines():
                         login_info = line.split()
-                        if(self.FnameLineLogin.text() == self.FindUsersData[0] 
-                        and self.LnameLineLogin.text() == self.FindUsersData[1]
-                        and self.PassLineLogin.text() == self.FindUsersData[2] 
-                        and self.PinLogin.text() == self.FindUsersData[4]):
+                        if(self.fname == self.FindUsersData[0] 
+                        and self.lname == self.FindUsersData[1]
+                        and self.password == self.FindUsersData[2] 
+                        and self.pin == self.FindUsersData[4]):
                             return True
                         else:
                             return False 

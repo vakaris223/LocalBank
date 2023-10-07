@@ -1,5 +1,6 @@
 import socket
 import threading
+from logic import Logic
 
 Size = 64
 PORT = 5050
@@ -17,15 +18,13 @@ def handle_client(conn, addr):
     connected = True
     while connected:
         try:
-            msg_length = conn.recv(Size).decode(FORMAT)
-            if msg_length:
-                msg_length = int(msg_length)
-                msg = conn.recv(msg_length).decode(FORMAT)
-                print(f"[{addr}] {msg}")
-                conn.send("Sent".encode(FORMAT))
-            else:
-                print(f"[DISCONNECTED] {addr}")
-                connected = False
+            loginData = conn.recv(Size).decode(FORMAT)
+            loginData = loginData.split()
+            print(loginData[0], loginData[1], loginData[2], loginData[3])
+            #if msg_lenght is not None
+
+                
+                
         except socket.error as e:
             print(f"[DISCONNECTED] {addr}")
             connected = False
