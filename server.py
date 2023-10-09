@@ -1,6 +1,6 @@
 import socket
 import threading
-from logic import Logic
+import logic
 
 Size = 64
 PORT = 5050
@@ -17,17 +17,19 @@ def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
     while connected:
-        try:
-            loginData = conn.recv(Size).decode(FORMAT)
-            loginData = loginData.split()
-            print(loginData[0], loginData[1], loginData[2], loginData[3])
-            #if msg_lenght is not None
-
-                
-                
-        except socket.error as e:
-            print(f"[DISCONNECTED] {addr}")
-            connected = False
+        # try:
+        loginData = conn.recv(Size).decode(FORMAT)
+        loginData = loginData.split()
+        
+        if logic.checkdata(loginData[0], loginData[1], loginData[2], loginData[3]):
+            print(logic.checkdata(loginData[0], loginData[1], loginData[2], loginData[3]))
+            conn.send("True".encode(FORMAT))
+        else:
+            print(logic.checkdata(loginData[0], loginData[1], loginData[2], loginData[3]))
+            conn.send("False".encode(FORMAT))
+        # except socket.error as e:
+        #     print(f"[DISCONNECTED] {addr}")
+        #     connected = False
     conn.close()
 
 def start():
@@ -37,7 +39,7 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-
+        
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
         for thread in threading.enumerate():
             print(thread.name)

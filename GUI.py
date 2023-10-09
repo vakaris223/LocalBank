@@ -72,14 +72,11 @@ class GUI(QMainWindow):
         self.RegFrame.setVisible(True)
         
         
-    def PopUpMsg(self, title, text, info, icon, DButton, SButton):
+    def PopUpMsg(self, title, text, info, icon):
         msg = QMessageBox()
         msg.setIcon(icon)
         msg.setWindowTitle(title)
         msg.setText(text)
-        msg.setStandardButtons(SButton)
-        msg.setDefaultButton(DButton)
-
         msg.setInformativeText(info)
         msg.exec_()
         return msg.clickedButton()
@@ -120,7 +117,7 @@ class GUI(QMainWindow):
             self.RegFrame.setVisible(False)
             self.ClientMenuFrame.setVisible(True)
         else:
-            self.PopUpMsg("Login Failed", "Login Failed", "Wrong username or password.", QMessageBox.Warning, QMessageBox.Ok, QMessageBox.Ok)
+            self.PopUpMsg("Login Failed", "Login Failed", "Wrong username or password.", QMessageBox.Warning)
                 
     def register(self):
         data = open("data.txt", "w")
@@ -131,10 +128,10 @@ class GUI(QMainWindow):
            or self.AddressLine.text() ==  "" 
            or self.MobileLine.text() ==  "" 
            or self.AgeBox.text() == ""):
-            self.PopUpMsg("Register Failed", "Register Failed", "Please fill all the fields.", QMessageBox.Warning, QMessageBox.Ok, QMessageBox.Ok)
+            self.PopUpMsg("Register Failed", "Register Failed", "Please fill all the fields.", QMessageBox.Warning)
 
         elif (self.PassLine.text() != self.RPassLine.text()):
-            self.PopUpMsg("Register Failed", "Register Failed", "Passwords do not match.", QMessageBox.Warning, QMessageBox.Ok, QMessageBox.Ok)
+            self.PopUpMsg("Register Failed", "Register Failed", "Passwords do not match.", QMessageBox.Warning)
         else:
             data.write(self.FnameLine.text())
             data.write(" ")
@@ -154,19 +151,24 @@ class GUI(QMainWindow):
             data.write(" ")
             data.write(self.AgeBox.text())
 
-            self.PopUpMsg("Register Success", "Register Success", "You have successfully registered.", QMessageBox.Information, QMessageBox.Ok, QMessageBox.Ok)
+            self.PopUpMsg("Register Success", "Register Success", "You have successfully registered.", QMessageBox.Information)
             
         data.close()
         #we will write in data int .txt file
        
     def Exit(self):
-        #are you sure?\
-        #self, title, text, info, icon, DButton, SButton
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Question)
+        msg.setWindowTitle("Exit")
+        msg.setText("Do you want to exit?")
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        msg.setDefaultButton(QMessageBox.No)
+        msg.setInformativeText("Are you sure?")
+        msg.exec_()
         
-        if(self.PopUpMsg("Exit", "Exit", "Are you sure you want to exit?", QMessageBox.Warning, QMessageBox.Yes, QMessageBox.Yes) == QMessageBox.Yes):
-            self.close()
-        else:
-            pass
+        if msg.clickedButton() == msg.button(QMessageBox.Yes):
+            sys.exit()
+        
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)

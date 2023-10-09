@@ -8,6 +8,7 @@ ADDR = (SERVER, PORT)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 class Client():
+    
     def run():
         client.connect(ADDR)
     
@@ -15,7 +16,12 @@ class Client():
     def check_login_data(fname, lname, password, pin):   
         data = f"{fname} {lname} {password} {pin}"
         client.send(data.encode(FORMAT))
-        return bool(client.recv(1024).decode(FORMAT))
+        if(client.recv(64).decode(FORMAT) == "True"):
+            print("True")
+            return True
+        else:
+            print("False")
+            return False
 
     # def SendData(self, data):
     #         data = data.encode(FORMAT)
@@ -23,7 +29,3 @@ class Client():
     #         send_length = str(data_length).encode(FORMAT)
     #         client.send(send_length)
     #         client.send(data)
-
-
-
-

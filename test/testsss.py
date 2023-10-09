@@ -1,4 +1,3 @@
-#client class for bank
 
 
 def FindUsersData(fname, lname):
@@ -26,21 +25,6 @@ def checkdata(fname, lname, password, pin):
                             return True
                         else:
                             return False 
-    
-    
-    
-
-#def goexit_func():
-
-# def winthdraw():
-
-# def deposit():
-
-# def CheckBalance(client):
-
-# def balance():
-
-# def CheckLogin():
-
-# def StoreRegistration():
- 
+                        
+                        
+print(checkdata("c", "a", "a", "1111"))
