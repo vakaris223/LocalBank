@@ -1,6 +1,41 @@
 #client class for bank
 
-
+def writeData(Fname, Lname, Pass, Gmail, Address, Mobile, Age):
+    with open("data.txt", "w") as f:
+        
+        f.write(self.Fname)
+        f.write(" ")
+        
+        f.write(self.Lname)
+        f.write(" ")
+        
+        f.write(self.Pass)
+        f.write(" ")
+        
+        #pin
+        f.write(format(randint(0000,9999)))
+        f.write(" ")
+        
+        #credit card num
+        f.write(format(randint(0000000000000000,9999999999999999)))
+        f.write(" ")
+        
+        f.write(self.Gmail)
+        f.write(" ")
+        
+        f.write(self.Address)
+        f.write(" ")
+        
+        f.write(self.Mobile)
+        f.write(" ")
+        
+        f.write(self.Age)
+        
+        return True
+        f.close()
+    
+        
+        
 def FindUsersData(fname, lname):
     with open("data.txt", "r") as f:
         for line in f.readlines():

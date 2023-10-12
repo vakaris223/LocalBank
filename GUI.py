@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 from random import randint
 from client import Client
 import time
+import ClientLogic
 
 class GUI(QMainWindow):
     def __init__(self):
@@ -81,36 +82,6 @@ class GUI(QMainWindow):
         msg.exec_()
         return msg.clickedButton()
         
-    # def FindUsersData(self, lname, fname):
-    #     user = []
-    #     for line in open("data.txt", "r").readlines():
-    #         login_info = line.split()
-    #         if(fname == login_info[0] and lname == login_info[1]):
-    #             return login_info
-    #     return False
-    
-    # def checkdata(self):
-    #         if(self.FindUsersData(self.LnameLineLogin.text(), self.FnameLineLogin.text()) == False):
-    #             msg = QMessageBox()
-    #             msg.setIcon(QMessageBox.Warning)
-    #             msg.setWindowTitle("Login Failed")
-    #             msg.setText("No user")
-    #             msg.setStandardButtons(QMessageBox.Ok)
-    #             msg.setDefaultButton(QMessageBox.Ok)
-    #             msg.setInformativeText("No user that name was found.")
-    #             msg.exec_()  
-    #         else:
-    #             for line in open("data.txt", "r").readlines():
-    #                 login_info = line.split()
-    #                 if(self.FnameLineLogin.text() == self.FindUsersData[0] 
-    #                 and self.LnameLineLogin.text() == self.FindUsersData[1]
-    #                 and self.PassLineLogin.text() == self.FindUsersData[2] 
-    #                 and self.PinLogin.text() == self.FindUsersData[4]):
-    #                     return True
-    #                 else:
-    #                     return False 
-                
-   
     def login(self):
         if Client.check_login_data(self.FnameLineLogin.text(), self.LnameLineLogin.text(), self.PassLineLogin.text(), self.PinLogin.text()):
             self.LoginFrame.setVisible(False)
@@ -121,17 +92,13 @@ class GUI(QMainWindow):
                 
     def register(self):
         data = open("data.txt", "w")
-        if(self.FnameLine.text() == "" 
-           or self.LnameLine.text() == "" 
-           or self.PassLine.text() == "" 
-           or self.GmailLine.text() == "" 
-           or self.AddressLine.text() ==  "" 
-           or self.MobileLine.text() ==  "" 
-           or self.AgeBox.text() == ""):
+        if(self.FnameLine.text() == "" or self.LnameLine.text() == "" or self.PassLine.text() == "" or self.GmailLine.text() == "" or self.AddressLine.text() ==  "" or self.MobileLine.text() ==  "" or self.AgeBox.text() == ""):
+            print(ClientLogic.ageValid(self.AgeBox))
             self.PopUpMsg("Register Failed", "Register Failed", "Please fill all the fields.", QMessageBox.Warning)
-
+            
         elif (self.PassLine.text() != self.RPassLine.text()):
             self.PopUpMsg("Register Failed", "Register Failed", "Passwords do not match.", QMessageBox.Warning)
+            
         else:
             data.write(self.FnameLine.text())
             data.write(" ")
